@@ -1,0 +1,13 @@
+package com.test04;
+
+public class MyAspect {
+	
+	public void before() {
+		
+	}
+	
+	public void after()
+	{
+
+	}
+}

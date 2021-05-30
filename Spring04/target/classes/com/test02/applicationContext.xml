@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="favoriteFood" name="favoriteFood" class="com.test02.Food">
+		<property name="name" value="피자"/>
+		<property name="price" value="30000"/>
+	
+	</bean>
+	
+	<bean id="unFavorite" name="unFavoriteFood" class="com.test02.Food">
+		<constructor-arg value="떡볶이"/>
+		<constructor-arg value="25000"/>
+	
+	</bean>
+	
+	<!-- 
+	<bean id="myfood" class="com.test02.MyFood">
+		<constructor-arg ref="favoriteFood"></constructor-arg>
+		<constructor-arg ref="unFavoriteFood"></constructor-arg>
+	</bean>  
+	아래 autowire로 줄여서 쓸 수 있음 
+	-->
+	
+	<bean id="myfood" class="com.test02.MyFood" autowire="constructor"></bean>
+	
+	<!-- 
+	
+		autowire : 자동으로 연결해줄거야 
+		1. byname : setter와 같은 이름의 bean (id/name 둘중하나) 이 있으면 자동할당 
+		setFavoriteFood -> favoriteFood
+		setUnFavoriteFood -> unFavoriteFood
+		2. byType : setter의 parameterType과 같은 type의 bean이 있으면 자동 할당
+		-> 현재 Food타입의 값은 unfavoriteFood와  faboriteFood 두개가 있어서 오류가발생한다 
+		-> 둘중 하나만 있어야함 
+		3. constructor : 생성자와 같은 이름의 bean이 있으면 자동 할당 
+		4. default : 생성자에 할당할 수 있는지 확인 후-> 없으면 setter에서 확인하여 할당 
+					기본 생성자가 있으면 기본생성자를 호출한다 
+	 -->
+</beans>
+
+
+
+
+
+
+
+
+
+
+

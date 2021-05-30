@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="singleton" class="com.test01.AbstractTest" factory-method="getInstance"></bean>
+	<!-- factory-method="getInstance" 가 getInstance()메소드를 호출해서 객체 만드는 역할  -->
+	<!--  AbstractTest singleton = AbstractTest.getInstance(); -->
+	<!-- 싱글톤 : 객체가 하나만 존재하게 만드는 기술  -->
+	<!-- ex) Calendar cal = Calendar.getInstance();
+			 Calendar cal2 = Calenar. getInstance();
+			cal 과 cal2는 같은 아이이다.  
+			
+		ex) Singleton s1 = Singleton.getInstance();
+			Singleton s2 = Singleton.getInstance();
+			
+			syso(s1 == s2); -> true
+			
+			syso(s1.hashCode());
+			syso(s2.hashCode()); 두개 호출하면 똑같은 애가 출력 된다. 
+			
+		ex) class Singleton{
+			private Singleton singleton;
+			private Singleton(){   //생성자 프라이빗 외부에서 싱글톤 호출 X
+			}
+			
+			public static Singleton getInstance(){ //getInstance()를 몇번이나 불러도 객체는 똑같은 아이가 호출 힙영역에 하나만 만들어진다.  
+				if (singleton != null){
+					singleton = new Singleton();
+				}
+				return singleton;
+			}
+		}
+	 -->
+
+
+</beans>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;com.test01.MyNickNameprn.java&apos; to &apos;MyNickNamePrn.java&apos;&#x0D;&#x0A;- Original project: &apos;Spring05_Annotation&apos;&#x0D;&#x0A;- Original element: &apos;com.test01.MyNickNameprn.java&apos;&#x0D;&#x0A;- Renamed element: &apos;com.test01.MyNickNamePrn.java&apos;" description="Rename compilation unit &apos;MyNickNameprn.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src=/optional=/true=/=/maven.pomderived=/true=/&lt;com.test01{MyNickNameprn.java" name="MyNickNamePrn.java" references="false" stamp="1621612004059" version="1.0"/>
+</session>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="lee" class="com.test04.Emp">
+		<property name="name" value="이순신"/>
+		<property name="salary" value="3000000"/>
+	</bean>
+	<!-- 
+	    Emp lee = new Emp(); 
+		lee.setName("이순신");
+		lee.setSalary(3000000);
+	-->
+	
+	<bean id="hong" class="com.test04.Emp">
+		<property name="name" value="홍길동"/>
+		<property name="salary" value="2500000"/>
+	</bean>
+	
+	<bean id="lee-ss" class="com.test04.Developer">
+		<!--  <constructor-arg name="emp" /> --> 
+		<!-- 생성자에 값을 넣어줘야 하는데 들어가야할 타입이 스트링이었다. 여기에는 Emp 객체가 들어가야한다. 위에 만들어놓은 Emp객체를 넣어줘야함 -->
+		<constructor-arg name="emp" ref="lee"/> <!-- 위에 만들어놓은 Emp객체들을 참조해주면 된다. --> 
+		<constructor-arg name="dept" value="개발"/>
+	</bean>
+	
+	<bean id="hong-gd" class="com.test04.Engineer">
+		<constructor-arg index="0" ref="hong"/>
+		<constructor-arg index="1" value="기술"/>
+	</bean>
+
+
+</beans>

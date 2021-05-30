@@ -1,0 +1,33 @@
+package com.test03;
+
+public class LgTv implements TV {
+	
+	public LgTv() {
+		System.out.println("Lg tv 생성");
+	}
+
+	@Override
+	public void powerOn() {	
+		System.out.println("Lg tv power on");
+
+	}
+
+	@Override
+	public void powerOff() {
+		System.out.println("Lg tv power off");
+
+	}
+
+	@Override
+	public void volumeUp() {
+		System.out.println("Lg tv volume up");
+
+	}
+
+	@Override
+	public void volumeDown() {
+		System.out.println("Lg tv volume down");
+
+	}
+
+}

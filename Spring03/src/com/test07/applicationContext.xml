@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 생성 -->
+	<bean id="samsung" class="com.test07.SamsungTv" lazy-init="true"></bean>
+	<!-- lazy init : 늦게 초기화 할거야 누가 부르지않으면 초기화하지 않을거야  -->
+	<bean id="lg" class="com.test07.LgTv"></bean>
+
+
+</beans>

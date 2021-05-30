@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="lee" class="com.test02.Emp">  <!-- 파라미터 두개짜리 생성자 사용 -->
+		<constructor-arg name="name" value="이순신"/>
+		<constructor-arg name="salary" value="3000000"/>
+	</bean>
+	<!-- 
+	Emp lee = new Emp("이순신", 3000000); 
+	id 는 bean에 이름 지어주는것, 변수
+	-->
+	
+	<bean id="hong" class="com.test02.Emp"> <!-- new Emp(); 만들고 [setName, setSalary] setter주입 사용 --> 
+		<property name="name" value="홍길동"/>
+		<property name="salary" value="2000000"/>
+	</bean>
+	<!-- 
+		Emp hong = new Emp(); 
+		hong.setName("홍길동");
+		hong.setSalary(2500000);
+	-->
+
+</beans>

@@ -1,0 +1,17 @@
+package com.test06;
+
+public class MyAspect {
+	
+	public void myClass() {
+		
+	}
+	
+	public void before() {
+		
+	}
+	
+	public void after() {
+		
+	}
+
+}

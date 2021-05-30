@@ -1,0 +1,27 @@
+package com.test01anno;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class MyNickNamePrn {
+	
+	@Autowired
+	private NickName nickName; //NickName.java에서 만들어진 객체를 넣어주기 
+
+	public NickName getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(NickName nickName) {
+		this.nickName = nickName;
+	}
+
+	@Override
+	public String toString() {
+		return "제 별명은 " + nickName + "입니다.";
+	}
+	
+	
+
+}

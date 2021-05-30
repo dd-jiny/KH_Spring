@@ -1,0 +1,11 @@
+package com.test03;
+
+public class Man implements Student {
+
+	@Override
+	public void classWork() {
+		// TODO Auto-generated method stub
+
+	}
+
+}
