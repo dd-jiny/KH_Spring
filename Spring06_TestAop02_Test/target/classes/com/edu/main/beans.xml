@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	<!--  
+	<bean id="rect" class="com.edu.entity.Rectangle">
+		<property name="title" value="사각형"></property>
+		<property name="data1" value="3" ></property>
+		<property name="data2" value="5" ></property>
+	
+	</bean>
+	-->
+	
+	<bean id="rect" class="com.edu.entity.Rectangle">
+		<constructor-arg value="사각형" />
+		<constructor-arg value="3" />
+		<constructor-arg value="5" />
+	</bean>
+	
+	<bean id="tri" class="com.edu.entity.Triangle">
+		<property name="title" value="삼각형"></property>
+		<property name="data1" value="3" ></property>
+		<property name="data2" value="5" ></property>
+	
+	</bean>
+	
+	<bean id="myAspect" class="com.edu.aop.MyAspect"></bean>
+	
+	
+<!--
+
+Teacher
+
+aop:aspectj-autoproxy 대신 
+이렇게 사용해도 된다.
+ 차이점 : aop:aspectj-autoproxy 사용하면 MyAspect에 annotation을 걸어줘야 한다. but <aop:config>는 여기에다가 설정 잡아주면 된다 
+
+<aop:config>
+<aop:pointcut expression="executuion(* viewSize())" id="viewpoint"/>
+	<aop:aspect ref="myAspect">
+		<aop:before method="before" pointcut-ref="viewpoint"/>
+		<aop:after method="after" pointcut-ref="viewpoint"/>
+	</aop:aspect>
+</aop:config>	
+
+ -->	
+	
+	
+	
+</beans>
