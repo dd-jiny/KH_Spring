@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="com.mvc.upgrade.model.dto.MYBoardDto" alias="myBoardDto"/>
+	</typeAliases>
+	
+	<!-- resource : src/main/resoueces와 같음 -->
+	<!-- properties - Web Deployment Assembly 에서 연결되어 있는 폴더 확인 가능  -->
+	<mappers>
+		<mapper resource="/mybatis/myboard-mapper.xml"/>
+	</mappers>
+</configuration>

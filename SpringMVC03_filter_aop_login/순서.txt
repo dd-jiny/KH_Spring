@@ -1,0 +1,246 @@
+spring legacy project 만들고 프로젝트 이름 설정
+spring mvc project 선택
+com.mvc.upgrade로 폴더 이름 설정 
+
+SpringMVC03
+01. pom.xml : ojdbc6, mybatis, mybatis-spring, commons-dbcp, spring-orm 추가  
+(DB랑 연결할 준비하는 애들, DB랑 관련있는 애들)
+
+-ojdbc6:
+oracle >> ojdbc6, repositories 태그안에 datanucleus링크 주소 등록해놓아야함 
+
+-mybatis
+mybatis , org.mybatis » mybatis
+
+-mybatis-spring
+mybatis-spring ,org.mybatis » mybatis-spring
+https://mvnrepository.com/artifact/org.mybatis/mybatis-spring 
+
+-commons-dbcp
+org.apache.commons » commons-dbcp2 이거로 바뀜
+https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 
+
+-spring-orm , org.springframework » spring-orm
+https://mvnrepository.com/artifact/org.springframework/spring-orm 
+version 태그안에 내용을 ${org.springframework-version} 로 바꿔주기 
+
+ex)dependency-hierarchy안에 orm들어가면 버전을 잘 맞춰주지않으면 충돌난다.
+
+02. web.xml : applicationContext.xml, mapping(*.do), encodingFilter
+
+-Spring폴더에 있는 root-context.xml 을 appservlet폴더 안에 넣어 주고 이름을 applicationContext.xml로 바꿔준다.
+-web.xml 파일 안에 context-param태그 안에 param-value의 root-context.xml을 applicationContext.xml로 바꿔준다.
+-servelt-mapping태그 안에 url-pattern태그 안에 /를 *.do로 바꿔준다
+-맨밑에 인코딩 필터 적용
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+03. /WEB-INF/spring/sqls/test.sql
+04. dto, dao, biz, controller 만들기 
+src/main/java 에다가 만들기 com.mvc.upgrade있는 폴더에..
+
+-DaoImpl에 Repository잡아주기, bizImpl에 service잡아주기
+
+매퍼만들기전에 매퍼설정
+마이바티스 가서 시작하기 가서 
+-xml -> preferences ->xmlcatalog -> add -> publickey:-//mybatis.org//DTD Config 3.0//EN -> location:http://mybatis.org/dtd/mybatis-3-config.dtd
+마찬가지 매퍼에대한거 추가 add-> key: -//mybatis.org//DTD Mapper 3.0//EN -> location: http://mybatis.org/dtd/mybatis-3-mapper.dtd
+
+05. src/main/resources/mybatis/myboard-mapper.xml
+06. src/main/resources/mybatis/db.properties
+07. /WEB-INF/spring/sqls/config.xml
+08. applicationContext.xml, servlet-context.xml
+
+_filter
+09/ com/mvc/upgrade/common/filter/Logfilter클래스 만들면서 (impl javax.servlet.Filter : 인터페이스 Filter 상속) 
+10. web.xml : filter 
+
+	<filter>
+		<filter-name>logFilter</filter-name>
+		<filter-class>com.mvc.upgrade.common.filter.LogFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>logFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+추가로 적어주기
+
+#result:
+
+console 창에 이렇게 뜬다
+NFO : com.mvc.upgrade.common.filter.LogFilter - 
+LOG Filter
+* remoteAddr : 0:0:0:0:0:0:0:1
+* uri : /upgrade/
+* url : http://localhost:8787/upgrade/
+* queryString : null
+* referer : null
+* agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36
+
+INFO : com.mvc.upgrade.common.filter.LogFilter - 
+LOG Filter
+* remoteAddr : 0:0:0:0:0:0:0:1
+* uri : /upgrade/list.do
+* url : http://localhost:8787/upgrade/list.do
+* queryString : null
+* referer : http://localhost:8787/upgrade/
+* agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36
+
+//ip 주소 IPv6 url : localhost를 127.0.0.1로 요청하면 IPv4로 나옴
+//URI = URL + URN , http 요청 url 중에 queryString 까지 반환. (context path) 
+//protocol + servername + portnumber + serverpath
+//key=value 형태로 데이터 전달
+//이전 페이지의 url (getHeader : 지정한 요청 헤더값을 문자열로 반환)
+//사용자 정보 (browser version, os 등)
+
+
+_aop
+
+11. pom.xml : aspectjweaver, aspectjrt 
+-spring orm 까지 디펜던시 되어있나 확인 후 그 밑에 
+
+aspectjweaver
+
+		<!-- aop 관련 -->
+		<!-- aspectjweaver -->
+		<!-- org.apectj -->
+		<dependency>
+  			<groupId>org.aspectj</groupId>
+  			<artifactId>aspectjweaver</artifactId>
+  			<version>${org.aspectj-version}</version>   //맨위에 aspectj-version으로 버전 바꿔주기 
+		</dependency>
+		
+aspectjrt
+
+		<!-- aspectjrt -->
+		<!-- 마찬가지로 org.aspectj -->
+		<dependency>
+  			<groupId>org.aspectj</groupId>
+  			<artifactId>aspectjrt</artifactId>
+  			<version>${org.aspectj-version}</version>		//맨위에 aspectj-version으로 버전 바꿔주기
+		</dependency>
+
+: 위에서 디펜던시가 먼저 잡혀있다. 완전히 버전까지 같으면 상관 없다. 버전까지 완벽히 같으면 중복해도 상관없지만 안쓰는게 좋다
+
+12. com/mvc/upgrade/common/aop/LogAop 
+ before, after, afterThrowing 메소드 추가 
+ 
+13. WEB-INF/spring/appServlet/aop-context.xml
+-aop 에 관련된 설정은 여기에 모아둘거야 (spring bean configuration파일로 만들것)
+namespace -> aop추가
+
+	<bean name="logAop" class="com.mvc.upgrade.common.aop.LogAop"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(public * com.mvc.upgrade.model.dao.*Dao*.*(..))" id="daoPoint"/>
+		<aop:aspect id="logAop" ref="logAop">
+			<aop:before method="before" pointcut-ref="daoPoint"/>
+			<aop:after method="after" pointcut-ref="daoPoint"/>
+			<aop:after-throwing method="afterThrowing" pointcut-ref="daoPoint"/>
+		</aop:aspect>
+	</aop:config>
+
+14.web.xml : aop-context.xml 추가 (DispatcherServlet의 init-param)
+	servlet태그의 init-param 태그안에 param-value 태그 안에 /WEB-INF/spring/appServlet/aop-context.xml 추가
+			<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/spring/appServlet/servlet-context.xml
+				/WEB-INF/spring/appServlet/aop-context.xml
+			</param-value>
+		</init-param>
+15. src/main.resources/log4j.xml (logger추가 및 log level변경)
+
+맨위 2-3번째 줄 수정
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+_login
+16. pom.xml : jackson-core-asl, jackson-mapper-asl (spring 4.x버전에서는 다른거 사용!)
+
+		<!-- Jackson Core -->
+		<!-- com.fasterxml.jackson.core » jackson-core 스프링4.x버전에서 사용 -->
+		<!-- org.codehaus.jackson » jackson-core-asl 스프링3.x버전에서 사용 // 이거써야함 !-->
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl -->
+		<dependency>
+    		<groupId>org.codehaus.jackson</groupId>
+    		<artifactId>jackson-core-asl</artifactId>
+    		<version>1.9.13</version>
+		</dependency>
+		
+		<!-- jaskson-mapper-asl -->
+		<!-- Data Mapper For Jackson : org.codehaus.jackson » jackson-mapper-asl 3.x 버전에서 사용 // 이거 써야함! -->
+		<!-- Jackson Databind : com.fasterxml.jackson.core » jackson-databind   4.x버전에서 사용 -->
+		<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->
+		<dependency>
+    		<groupId>org.codehaus.jackson</groupId>
+    		<artifactId>jackson-mapper-asl</artifactId>
+    		<version>1.9.13</version>
+		</dependency>
+		
+		추가해주기 
+
+17. WEB-INF/spring/sqls/test.sql (MYMEMBER)테이블 만들기 
+18. dto, dao, biz, controller
+19. src/main/resources/mybatis/mymember-mapper.xml
+oteher - xml file - 이름지어주고 -DTD 선택 - 등록한 catalog에서 - mybtis mapper 찾아서 선택!  
+
+20. WEB-INF/spring/sqls/config.xml
+mappers 태그 안에  
+<mapper resource="/mybatis/mymember-mapper.xml"/> 추가
+
+typeAliases 태그안에 typeAlias 잡아주기
+<typeAlias type="com.mvc.upgrade.model.dto.MYMemeberDto" alias="myMemberDto"/>
+일반적으로 config 파일은 하나를 만들고 mapper를 여러개 만드는것! 
+
+mapper -> config -> dao -> biz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

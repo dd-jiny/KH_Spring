@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<bean name="logAop" class="com.mvc.upgrade.common.aop.LogAop"/>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(public * com.mvc.upgrade.model.dao.*Dao*.*(..))" id="daoPoint"/>
+		<aop:aspect id="logAop" ref="logAop">
+			<aop:before method="before" pointcut-ref="daoPoint"/>
+			<aop:after method="after" pointcut-ref="daoPoint"/>
+			<aop:after-throwing method="afterThrowing" pointcut-ref="daoPoint"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
+
+<!-- 
+"execution(public * com.mvc.upgrade.model.dao.*Dao*.*(..))" 얘 설명
+접근제한자가 퍼블리인 애들을 찾겠다. 리턴타입은 뭐든지 상관없다. 
+com.mvc.upgrade.model.dao 패키지 안에 있는 *Dao* (1 or more Dao Impl)를 찾겠다. 중간에 다오가 들어가는거 찾음
+.*(..) 해당클래스가 가진어떤 메소드던 상관없고 파라미터가 몇개든 상관이없다. 
+* : 1 or More 몇글자가 나오던 상관없음 *Dao* 이니 ~DaoImpl이라는 클래스 찾는다. 
+
+ -->

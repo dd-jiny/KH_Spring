@@ -1,0 +1,69 @@
+SpringMVC03
+01. pom.xml : ojdbc6, mybatis, mybatis-spring, commons-dbcp, spring-orm 추가  
+(DB랑 연결할 준비하는 애들, DB랑 관련있는 애들)
+
+-ojdbc6:
+oracle >> ojdbc6, repositories 태그안에 datanucleus링크 주소 등록해놓아야함 
+
+-mybatis
+mybatis , org.mybatis » mybatis
+
+-mybatis-spring
+mybatis-spring ,org.mybatis » mybatis-spring
+https://mvnrepository.com/artifact/org.mybatis/mybatis-spring 
+
+-commons-dbcp
+org.apache.commons » commons-dbcp2 이거로 바뀜
+https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2 
+
+-spring-orm , org.springframework » spring-orm
+https://mvnrepository.com/artifact/org.springframework/spring-orm 
+version 태그안에 내용을 ${org.springframework-version} 로 바꿔주기 
+
+ex)dependency-hierarchy안에 orm들어가면 버전을 잘 맞춰주지않으면 충돌난다.
+
+02. web.xml : applicationContext.xml, mapping(*.do), encodingFilter
+
+-Spring폴더에 있는 root-context.xml 을 appservlet폴더 안에 넣어 주고 이름을 applicationContext.xml로 바꿔준다.
+-web.xml 파일 안에 context-param태그 안에 param-value의 root-context.xml을 applicationContext.xml로 바꿔준다.
+-servelt-mapping태그 안에 url-pattern태그 안에 /를 *.do로 바꿔준다
+-맨밑에 인코딩 필터 적용
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+03. /WEB-INF/spring/sqls/test.sql
+04. dto, dao, biz, controller 만들기 
+src/main/java 에다가 만들기 com.mvc.upgrade있는 폴더에..
+
+-DaoImpl에 Repository잡아주기, bizImpl에 service잡아주기
+
+매퍼만들기전에 매퍼설정
+마이바티스 가서 시작하기 가서 
+-xml -> preferences ->xmlcatalog -> add -> publickey:-//mybatis.org//DTD Config 3.0//EN -> location:http://mybatis.org/dtd/mybatis-3-config.dtd
+마찬가지 매퍼에대한거 추가 add-> key: -//mybatis.org//DTD Mapper 3.0//EN -> location: http://mybatis.org/dtd/mybatis-3-mapper.dtd
+가져온 이유 : 
+
+05. src/main/resources/mybatis/myboard-mapper.xml
+06. src/main/resources/mybatis/db.properties
+07. /WEB-INF/spring/sqls/config.xml
+08. applicationContext.xml, servlet-context.xml
+
+
+
+
+
+
